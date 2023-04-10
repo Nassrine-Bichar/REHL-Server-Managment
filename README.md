@@ -1,2 +1,3 @@
-# REHL-Server-Managment
-"REHL management" is a GitHub repo with resources and instructions for managing Red Hat Enterprise Linux. It offers step-by-step guides, best practices, and collaboration opportunities for system administrators and IT professionals.
+WARNING!!!!!
+
+This repository contains instructions and resources that are specifically designed for Red Hat Enterprise Linux 6 (RHEL6). Please note that the latest versions of RHEL may have slightly different package names, commands, or syntax in some cases. Therefore, while the guides and tutorials provided in this repository are still valid and useful, they may require some modifications to work with newer versions of RHEL. If you are using a different version of RHEL, we recommend that you proceed with caution and double-check any commands or procedures before implementing them on your system. Always ensure that you have a complete understanding of any actions you take on your system to avoid unintended consequences.
