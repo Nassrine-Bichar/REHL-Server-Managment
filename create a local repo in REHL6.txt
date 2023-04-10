@@ -1,0 +1,103 @@
+How to create a YUM Local repository on RHEL 6
+==============================================
+Let's create a yum repository from the packages that we have in the Red Hat/Centos 
+installation DVD.Creating a YUM repository will help you to understand the concept of a 
+YUM repository closely.
+
+First and foremost, you have to have a directory that will contain your packages.
+
+Be advised to follow below step by step instructions in order to create a local repo.
+ 
+
+1.#mkdir /linuxrepo
+
+2.cd /media/RHEL_ by pressing on TaB IT WILL COMPLETE THE LINE
+
+3.cd /Packages
+
+4.[....Packages on RHEL6 and /Packages]rp
+
+#cp * -v /eva (-v is verbose to show all that is beeing copied)
+
+5.rpm -ivh deltarpm[Tab]
+
+6.rpm -ivh python-deltarpm[Tab]
+
+7.#rpm -ivh createrepo-0.4.11-3.....rpm
+
+8.#createrepo -v /linuxrepo  --compile an XML file to resolve dependency
+---createrepo is a program that creates a repomd (xml-based rpm metadata) 
+repository from a set of rpms. 
+
+9.#vim /etc/yum.repos.d/rhel.... press tab
+cd /etc/yum.repos.d
+
+#rm -f *.repo (this is done in case there some default files messing up your repo to function)
+
+#vim /etc/yum.repos.d/class.repo
+
+[Server]
+name=Linux Server
+baseurl=file:///linuxrepo
+enabled=1
+gpgcheck=0
+	
+:wq
+
+1.to copy we press 7 then yy
+2.delete : select using down or 
+upward arrow then press : dd
+3.paste : p
+4.save and quit : shift : wq
+
+#yum repolist
+#yum install <package name/s>
+#yum update <package name/s>
+#yum check-update
+#yum remove <package name/s>
+#yum search <keyword>
+
+Details are shared below:
+==============================================================
+The following is a list of the most commonly-used yum commands. 
+For a complete list of available yum commands, refer to man yum.
+
+yum install <package name/s>
+
+    Used to install the latest version of a package or group of packages. 
+If no package matches the specified package name(s), they are assumed to be a shell glob, 
+and any matches are then installed. 
+
+yum update <package name/s>
+
+    Used to update the specified packages to the latest available version. 
+If no package name/s are specified, then yum will attempt to update all installed packages.
+    If the --obsoletes option is used (i.e. yum --obsoletes <package name/s> , 
+yum will process obsolete packages. As such, packages that are obsoleted across 
+updates will be removed and replaced accordingly. 
+
+yum check-update
+
+    This command allows you to determine whether any updates are available for your 
+installed packages. yum returns a list of all package updates from all repositories 
+if any are available. 
+
+yum remove <package name/s>
+
+    Used to remove specified packages, along with any other packages dependent on the packages 
+being removed. 
+
+yum provides <file name>
+
+    Used to determine which packages provide a specific file or feature. 
+
+yum search <keyword>
+
+    This command is used to find any packages containing the specified keyword in the 
+description, summary, packager and package name fields of RPMs in all repositories. 
+
+yum localinstall <absolute path to package name/s>
+
+    Used when using yum to install a package located locally in the machine. 
+
+

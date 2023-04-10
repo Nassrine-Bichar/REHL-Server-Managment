@@ -1,0 +1,35 @@
+DHCP (Dynamic Host Configuration Protocol) SERVER CONFIGURATION IN REHL 6
+##########################################################################
+
+
+Step 1. Install DHCP server using YUM package manager
+
+#yum -y install dhcp
+
+This command installs the DHCP server on the system using the YUM package manager.
+
+2. Configure the DHCP server
+
+vim /etc/dhcp/dhcpd.conf 
+cp /usr/share/doc/dhcp-version(4)/dhcpd.conf.sample /etc/dhcp/dhcpd.conf
+vim /etc/dhcp/dhcpd.conf
+
+These commands configure the DHCP server by editing the "/etc/dhcp/dhcpd.conf" file. The first command opens the file in the Vim editor, the second command creates a backup of the file, and the third command opens the file again for editing.
+
+:set number command inside the Vim editor is used to enable line numbers.
+
+The following lines in the configuration file configure the DHCP server to serve IP addresses in the range of 192.168.10.10 to 192.168.10.254:
+
+subnet 192.168.10.0 netmask 255.255.255.0 {
+  option routers 192.168.10.1;
+  option subnet-mask 255.255.255.0;
+  option domain-name "paci.net";
+  option domain-name-servers 8.8.8.8;
+  range dynamic-bootp 192.168.10.10 192.168.10.254;
+  default-lease-time 21600;
+  max-lease-time 43200;
+}
+
+
+#chkconfig dhcpd on
+#service dhcpd start
