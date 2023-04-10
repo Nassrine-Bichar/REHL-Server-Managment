@@ -1,0 +1,29 @@
+Step 1: Create 3 partitions
+###################################
+
+
+fdisk /dev/sda
+# Create 3 partitions using "n" command, and set partition type to "fd" using "t" command.
+# Save and exit using "w" command.
+partprobe
+reboot
+
+Step 2: Create RAID 1 array
+
+mdadm --create /dev/md0 --level=mirror --raid-devices=3 /dev/sda3 /dev/sda4 /dev/sda5
+mdadm --detail /dev/md0
+
+
+#Create a RAID 1 array named "/dev/md0" with 3 devices (/dev/sda3, /dev/sda4, /dev/sda5), and check the details of the array.
+
+Step 3: Format and mount RAID array
+
+mkfs.ext4 /dev/md0
+mkdir /raid1
+mount /dev/md0 /raid1
+echo "/dev/md0 /raid1 ext4 defaults 0 0" >> /etc/fstab
+mount -a
+mdadm --detail /dev/md0
+
+
+Format the RAID array with "mkfs" command, create a mount point and mount the RAID array. Then add an entry in the "/etc/fstab" file to automatically mount the array on boot. Finally, check the details of the array using "mdadm --detail" command.
